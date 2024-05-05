@@ -1,10 +1,7 @@
 import flet as ft
 from flet_route import Routing
 from routes import app_routes
-from peewee import SqliteDatabase
-
-
-db = SqliteDatabase('db.sqlite3')
+from models import *
 
 
 def main(page: ft.Page):
@@ -22,6 +19,7 @@ def main(page: ft.Page):
 if __name__ == '__main__':
     try:
         db.connect()
+        db.create_tables([Museum])
         ft.app(target=main)
     except KeyboardInterrupt:
         db.close()

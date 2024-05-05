@@ -1,15 +1,12 @@
 import flet as ft
 from flet_route import Params, Basket
-
-imgings = [
-    'https://upload.wikimedia.org/wikipedia/commons/a/ad/Dom_Goncharov1.jpg',
-    'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/18/42/1a/16/caption.jpg?w=1400&h=-1&s=1'
-]
-muz = ['Ульяновский областной краеведческий музей им. И.А. Гончарова',
-       'Дом-музей В.И. Ленина']
+from models import Museum
 
 
 def indexView(page: ft.Page, params: Params, basket: Basket):
+
+    museums = Museum.select()
+
     return ft.View(
         "/",
         [
@@ -22,15 +19,15 @@ def indexView(page: ft.Page, params: Params, basket: Basket):
                                     content=ft.Image(
                                         height=300,
                                         width=300,
-                                        src=imgings[i - 1],
+                                        src=item.image,
                                         fit=ft.ImageFit.CONTAIN,
                                     )
                                 ),
-                                ft.Text(muz[i - 1]),
-                                ft.ElevatedButton('Смотреть подробнее', on_click=lambda _: page.go(f"/mus/{i}")),
+                                ft.Text(item.title),
+                                ft.ElevatedButton('Смотреть подробнее', on_click=lambda _: page.go(f"/mus/{item.id}")),
                             ],
                         ),
-                    ) for i in range(2)
+                    ) for item in museums
                 ],
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER
             ),
@@ -41,18 +38,20 @@ def indexView(page: ft.Page, params: Params, basket: Basket):
 
 def museumInfoView(page: ft.Page, params: Params, basket: Basket):
     id = int(params.get('id'))
+    museum = Museum.get_by_id(id)
     return ft.View(
         "/mus/:id",
         controls=[
             ft.Column(
                 controls=[
-                    ft.Text(f"{muz[id - 1]}"),
+                    ft.Text(museum.title),
                     ft.Image(
                         height=400,
                         width=400,
-                        src=imgings[id - 1],
+                        src=museum.image,
                         fit=ft.ImageFit.FIT_WIDTH
                     ),
+                    ft.Text(museum.description)
                 ],
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             ),

@@ -1,14 +1,14 @@
 import peewee as pw
-from main import db
+
+db = pw.SqliteDatabase('db.sqlite3')
 
 
 class Museum(pw.Model):
     title = pw.CharField(max_length=100)
     description = pw.TextField()
-    image = pw.BlobField()
+    image = pw.CharField()
 
     class Meta:
         database = db
 
 
-db.create_tables([Museum])
