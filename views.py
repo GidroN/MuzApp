@@ -1,5 +1,7 @@
 import flet as ft
 from flet_route import Params, Basket
+
+from events import close_click,change_theme
 from models import Museum
 
 
@@ -10,6 +12,25 @@ def indexView(page: ft.Page, params: Params, basket: Basket):
     return ft.View(
         "/",
         [
+            ft.AppBar(
+                leading=ft.Icon(ft.icons.MUSEUM),
+                leading_width=40,
+                title=ft.Text("Музеи"),
+                center_title=False,
+                bgcolor=ft.colors.SURFACE_VARIANT,
+                actions=[
+                    ft.IconButton(ft.icons.WB_SUNNY_OUTLINED, on_click=change_theme),
+                    ft.PopupMenuButton(
+                        items=[
+                            ft.PopupMenuItem(text="settings"),
+                            ft.PopupMenuItem(),  # divider
+                            ft.PopupMenuItem(
+                                text="exit",  on_click=close_click
+                            ),
+                        ]
+                    ),
+                ],
+            ),
             ft.Column(
                 controls=[
                     ft.Container(
@@ -29,7 +50,7 @@ def indexView(page: ft.Page, params: Params, basket: Basket):
                         ),
                     ) for item in museums
                 ],
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER
+                #horizontal_alignment=ft.CrossAxisAlignment.CENTER
             ),
         ],
         scroll=ft.ScrollMode.ALWAYS,
@@ -42,6 +63,25 @@ def museumInfoView(page: ft.Page, params: Params, basket: Basket):
     return ft.View(
         "/mus/:id",
         controls=[
+            ft.AppBar(
+                leading=ft.IconButton(ft.icons.ARROW_BACK, on_click=lambda _: page.go("/")),
+                leading_width=40,
+                title=ft.Text("Музеи"),
+                center_title=False,
+                bgcolor=ft.colors.SURFACE_VARIANT,
+                actions=[
+                    ft.IconButton(ft.icons.WB_SUNNY_OUTLINED, on_click=change_theme),
+                    ft.PopupMenuButton(
+                        items=[
+                            ft.PopupMenuItem(text="settings"),
+                            ft.PopupMenuItem(),  # divider
+                            ft.PopupMenuItem(
+                                text="exit", on_click=close_click
+                            ),
+                        ]
+                    ),
+                ],
+            ),
             ft.Column(
                 controls=[
                     ft.Text(museum.title),
