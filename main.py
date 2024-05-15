@@ -7,7 +7,7 @@ from models import *
 def main(page: ft.Page):
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
-    page.window_resizable = False
+    page.window_resizable = True
     Routing(
         page=page,
         app_routes=app_routes,
