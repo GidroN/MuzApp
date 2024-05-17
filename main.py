@@ -15,7 +15,7 @@ def main(page: ft.Page):
     page.go(page.route)
     page.update()
 
-#fdvdfv помогитеееее
+
 
 if __name__ == '__main__':
     try:
