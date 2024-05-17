@@ -59,7 +59,7 @@ def museumInfoView(page: ft.Page, params: Params, basket: Basket):
     id = int(params.get('id'))
     museum = Museum.get_by_id(id)
     return ft.View(
-        f"/mus/{id}",
+        "/mus/:id",
         controls=[
             ft.AppBar(
                 leading=ft.IconButton(ft.icons.ARROW_BACK, on_click=lambda _: page.go("/")),
