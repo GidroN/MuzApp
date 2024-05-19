@@ -1,3 +1,6 @@
+from flet_core import ListView
+import flet as ft
+from flet_map import FletMap
 def close_click(e):
     e.page.window_close()
 
@@ -5,5 +8,9 @@ def close_click(e):
 def change_theme(e):
     e.page.theme_mode = 'light' if e.page.theme_mode == 'dark' else 'dark'
     e.page.update()
-def carts(e):
-    pass
+
+
+def show_drawer(e):
+    e.page.drawer.open = True
+    e.page.drawer.update()
+
