@@ -1,14 +1,18 @@
 import flet as ft
 from flet_route import Params, Basket
 
-from events import close_click, change_theme, show_drawer
+from events import close_click, change_theme, show_drawer, change_route
 from models import Museum
+
+
 
 
 def indexView(page: ft.Page, params: Params, basket: Basket):
     museums = Museum.select()
 
     page.drawer = ft.NavigationDrawer(
+        selected_index=-1,
+        on_change=change_route,
         controls=[
             ft.Container(height=12),
             ft.NavigationDrawerDestination(
@@ -142,4 +146,12 @@ def museumInfoView(page: ft.Page, params: Params, basket: Basket):
         ],
         scroll=ft.ScrollMode.ALWAYS
     )
-# testtt2
+
+
+def aboutAppView(page: ft.Page, params: Params, basket: Basket):
+    return ft.View(
+        '/about_app/',
+        [
+            ft.Text('Hello!'),
+        ]
+    )
