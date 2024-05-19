@@ -4,8 +4,8 @@ import flet as ft
 
 
 ROUTES = {
-    0: '/',
-    1: '/about_app/'
+    0: '/about_app/',
+    1: '/about_city/'
 }
 
 
@@ -25,6 +25,9 @@ def show_drawer(e):
     e.page.views[0].drawer.update()
 
 
+
+
 def change_route(e):
     route = ROUTES[e.control.selected_index]
+    e.page.go(route)
     print(route)

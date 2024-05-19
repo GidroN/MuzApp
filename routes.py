@@ -1,10 +1,11 @@
 from flet_route import path
-from views import indexView, aboutAppView
-from views import museumInfoView
+from views import indexView, aboutAppView, aboutAppCity, museumInfoView, settings
 
 app_routes = [
     path(url="/", clear=True, view=indexView),
     path(url="/mus/:id", clear=False, view=museumInfoView),
     path(url='/about_app/', clear=False, view=aboutAppView),
+    path(url='/about_city/', clear=False, view=aboutAppCity),
+    path(url='/settings/', clear=False, view=settings),
 ]
 

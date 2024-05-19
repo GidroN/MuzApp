@@ -2,7 +2,7 @@ import flet as ft
 from flet_route import Routing
 from routes import app_routes
 from models import *
-from utils import fix_drawer
+#from utils import fix_drawer
 
 
 def main(page: ft.Page):
