@@ -7,7 +7,7 @@ from models import Museum
 
 def indexView(page: ft.Page, params: Params, basket: Basket):
     museums = Museum.select()
-    print(museums)
+
     page.drawer = ft.NavigationDrawer(
         controls=[
             ft.Container(height=12),

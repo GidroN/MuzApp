@@ -1,6 +1,8 @@
 from flet_core import ListView
 import flet as ft
-from flet_map import FletMap
+# from flet_map import FletMap
+
+
 def close_click(e):
     e.page.window_close()
 
@@ -11,6 +13,7 @@ def change_theme(e):
 
 
 def show_drawer(e):
-    e.page.drawer.open = True
-    e.page.drawer.update()
-
+    e.page.views[0].drawer = e.page.drawer
+    e.page.update()
+    e.page.views[0].drawer.open = True
+    e.page.views[0].drawer.update()
