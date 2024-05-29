@@ -5,8 +5,6 @@ from events import close_click, change_theme, show_drawer, change_route
 from models import Museum
 
 
-
-
 def indexView(page: ft.Page, params: Params, basket: Basket):
     museums = Museum.select()
     page.drawer = ft.NavigationDrawer(
@@ -34,12 +32,12 @@ def indexView(page: ft.Page, params: Params, basket: Basket):
                 leading_width=40,
                 title=ft.Text("Музеи"),
                 center_title=False,
-                bgcolor=ft.colors.SURFACE_VARIANT,                actions=[
+                bgcolor=ft.colors.SURFACE_VARIANT, actions=[
                     ft.IconButton(ft.icons.WB_SUNNY_OUTLINED, on_click=change_theme),
                     ft.PopupMenuButton(
                         items=[
                             ft.PopupMenuItem(
-                                "Настройки", on_click=lambda _:page.go('/settings/')
+                                "Настройки", on_click=lambda _: page.go('/settings/')
                             ),
                             ft.PopupMenuItem(
                                 text="Поддержка", on_click=...
@@ -98,7 +96,7 @@ def museumInfoView(page: ft.Page, params: Params, basket: Basket):
                     ft.PopupMenuButton(
                         items=[
                             ft.PopupMenuItem(
-                                text="Настройки", on_click=lambda _:page.go('/settings/')
+                                text="Настройки", on_click=lambda _: page.go('/settings/')
                             ),
                             ft.PopupMenuItem(
                                 text="Поддержка", on_click=...
@@ -153,7 +151,7 @@ def aboutAppView(page: ft.Page, params: Params, basket: Basket):
                     ft.PopupMenuButton(
                         items=[
                             ft.PopupMenuItem(
-                                text="Настройки", on_click=lambda _:page.go('/settings/')
+                                text="Настройки", on_click=lambda _: page.go('/settings/')
                             ),
                             ft.PopupMenuItem(
                                 text="Поддержка", on_click=...
@@ -180,6 +178,8 @@ def aboutAppView(page: ft.Page, params: Params, basket: Basket):
         scroll=ft.ScrollMode.ALWAYS
 
     )
+
+
 def aboutAppCity(page: ft.Page, params: Params, basket: Basket):
     return ft.View(
         '/about_city/',
@@ -195,7 +195,7 @@ def aboutAppCity(page: ft.Page, params: Params, basket: Basket):
                     ft.PopupMenuButton(
                         items=[
                             ft.PopupMenuItem(
-                                text="Настройки", on_click=lambda _:page.go('/settings/')
+                                text="Настройки", on_click=lambda _: page.go('/settings/')
                             ),
                             ft.PopupMenuItem(
                                 text="Поддержка", on_click=...
@@ -216,11 +216,11 @@ def aboutAppCity(page: ft.Page, params: Params, basket: Basket):
                         fit=ft.ImageFit.FIT_WIDTH
                     ),
                     ft.Text(
-                    'Ульяновск – это исторический и культурный центр Ульяновской области,'
-                    ' расположенный на берегах реки Волги.'
-                    'Город, основанный в 1648 году как крепость Синбирск, '
-                    'богат своей многовековой историей и культурными традициями.'
-                    'В 1924 году город был переименован в честь Владимира Ленина (Ульянова), который здесь родился.'
+                        'Ульяновск – это исторический и культурный центр Ульяновской области,'
+                        ' расположенный на берегах реки Волги.'
+                        'Город, основанный в 1648 году как крепость Синбирск, '
+                        'богат своей многовековой историей и культурными традициями.'
+                        'В 1924 году город был переименован в честь Владимира Ленина (Ульянова), который здесь родился.'
                     ),
 
                 ],
@@ -230,6 +230,8 @@ def aboutAppCity(page: ft.Page, params: Params, basket: Basket):
         scroll=ft.ScrollMode.ALWAYS
 
     )
+
+
 def settings(page: ft.Page, params: Params, basket: Basket):
     return ft.View(
         '/settings/',
@@ -245,7 +247,7 @@ def settings(page: ft.Page, params: Params, basket: Basket):
                     ft.PopupMenuButton(
                         items=[
                             ft.PopupMenuItem(
-                                text="Настройки", on_click=lambda _:page.go('/settings/')
+                                text="Настройки", on_click=lambda _: page.go('/settings/')
                             ),
                             ft.PopupMenuItem(
                                 text="Поддержка", on_click=...
@@ -265,5 +267,4 @@ def settings(page: ft.Page, params: Params, basket: Basket):
             ft.ElevatedButton("Назад", on_click=lambda _: page.go("/")),
         ],
         scroll=ft.ScrollMode.ALWAYS
-
     )

@@ -1,5 +1,6 @@
 from flet_core import ListView
 import flet as ft
+
 # from flet_map import FletMap
 
 
@@ -23,8 +24,6 @@ def show_drawer(e):
     e.page.update()
     e.page.views[0].drawer.open = True
     e.page.views[0].drawer.update()
-
-
 
 
 def change_route(e):

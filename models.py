@@ -11,7 +11,6 @@ class Museum(pw.Model):
     website = pw.TextField()
     address = pw.TextField()
     work_time = pw.TextField()
+
     class Meta:
         database = db
-
-
