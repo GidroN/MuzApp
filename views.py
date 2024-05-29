@@ -16,19 +16,13 @@ def indexView(page: ft.Page, params: Params, basket: Basket):
             ft.Container(height=12),
             ft.NavigationDrawerDestination(
                 label="О приложении",
-                icon=ft.icons.DOOR_BACK_DOOR_OUTLINED,
-                selected_icon_content=ft.Icon(ft.icons.DOOR_BACK_DOOR),
             ),
             ft.Divider(thickness=2),
             ft.NavigationDrawerDestination(
-                icon_content=ft.Icon(ft.icons.MAIL_OUTLINED),
                 label="О городе",
-                selected_icon=ft.icons.MAIL,
             ),
             ft.NavigationDrawerDestination(
-                icon_content=ft.Icon(ft.icons.PHONE_OUTLINED),
                 label="События",
-                selected_icon=ft.icons.PHONE,
             ),
         ],
     )
@@ -40,8 +34,7 @@ def indexView(page: ft.Page, params: Params, basket: Basket):
                 leading_width=40,
                 title=ft.Text("Музеи"),
                 center_title=False,
-                bgcolor=ft.colors.SURFACE_VARIANT,
-                actions=[
+                bgcolor=ft.colors.SURFACE_VARIANT,                actions=[
                     ft.IconButton(ft.icons.WB_SUNNY_OUTLINED, on_click=change_theme),
                     ft.PopupMenuButton(
                         items=[
@@ -135,7 +128,6 @@ def museumInfoView(page: ft.Page, params: Params, basket: Basket):
                     ft.Text(museum.address),
                     ft.Text(museum.work_time),
                     ft.Text(museum.website),
-                    #ft.IconButton(ft.icons.MAP, on_click=map),
 
                 ],
 
