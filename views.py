@@ -128,7 +128,6 @@ def museumInfoView(page: ft.Page, params: Params, basket: Basket):
                     ft.Text(museum.address),
                     ft.Text(museum.work_time),
                     ft.Text(museum.website),
-                    #ft.IconButton(ft.icons.MAP, on_click=map),
 
                 ],
 
