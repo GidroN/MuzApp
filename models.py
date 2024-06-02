@@ -12,5 +12,15 @@ class Museum(pw.Model):
     address = pw.TextField()
     work_time = pw.TextField()
 
+class Events(pw.Model):
+    title = pw.CharField(max_length=100)
+    description = pw.TextField()
+    image = pw.CharField()
+    address = pw.TextField()
+    museum = pw.TextField()
+
+
     class Meta:
         database = db
+
+
