@@ -1,5 +1,5 @@
 from flet_route import path
-from views import indexView, aboutAppView, aboutAppCity, museumInfoView, settings
+from views import indexView, aboutAppView, aboutAppCity, museumInfoView, settings, eventViews
 
 app_routes = [
     path(url="/", clear=True, view=indexView),
@@ -7,5 +7,6 @@ app_routes = [
     path(url='/about_app/', clear=False, view=aboutAppView),
     path(url='/about_city/', clear=False, view=aboutAppCity),
     path(url='/settings/', clear=False, view=settings),
+    path(url='/events/', clear=False, view=eventViews),
 ]
 
