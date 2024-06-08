@@ -25,7 +25,7 @@ class Museum(DefaultDBMeta):
 
 
 class Events(DefaultDBMeta):
-    title = pw.CharField(max_length=100)
+    title = pw.CharField(max_length=1000)
     description = pw.TextField()
     image = pw.CharField()
     address = pw.TextField()

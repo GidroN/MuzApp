@@ -270,11 +270,12 @@ def settings(page: ft.Page, params: Params, basket: Basket):
     )
 def eventViews(page: ft.Page, params: Params, basket: Basket):
     events = Events.select()
+
     return ft.View(
         "/events/",
         [
             ft.AppBar(
-                leading=ft.IconButton(ft.icons.MUSEUM, on_click=show_drawer),
+                leading=ft.IconButton(ft.icons.ARROW_BACK, on_click=lambda _: page.go("/")),
                 leading_width=40,
                 title=ft.Text("События"),
                 center_title=False,
@@ -310,8 +311,7 @@ def eventViews(page: ft.Page, params: Params, basket: Basket):
                                     controls=[
                                         ft.Text(item.title),
                                         ft.ElevatedButton('Смотреть подробнее',
-                                                          on_click=lambda _, item_id=item.id: page.go(
-                                                              f"/mus/{item_id}")),
+                                                          on_click=...),
                                     ]
                                 ),
                             ],
