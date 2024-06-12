@@ -268,7 +268,7 @@ def settings(page: ft.Page, params: Params, basket: Basket):
         ],
         scroll=ft.ScrollMode.ALWAYS
     )
-def eventViews(page: ft.Page, params: Params, basket: Basket):
+def allEventsViews(page: ft.Page, params: Params, basket: Basket):
     events = Events.select()
 
     return ft.View(
