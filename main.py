@@ -8,6 +8,8 @@ from models import *
 def main(page: ft.Page):
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
+    page.window_height = 900
+    page.window_width = 500
     page.window_resizable = True
 
     Routing(

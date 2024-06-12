@@ -1,13 +1,8 @@
 from flet_core import ListView
 import flet as ft
-
+from  routesevents import ROUTES
 # from flet_map import FletMap
 
-
-ROUTES = {
-    0: '/about_app/',
-    1: '/about_city/'
-}
 
 
 def close_click(e):

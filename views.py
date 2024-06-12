@@ -2,7 +2,7 @@ import flet as ft
 from flet_route import Params, Basket
 
 from events import close_click, change_theme, show_drawer, change_route
-from models import Museum
+from models import Museum, Events
 
 
 def indexView(page: ft.Page, params: Params, basket: Basket):
@@ -66,10 +66,10 @@ def indexView(page: ft.Page, params: Params, basket: Basket):
                                         ft.ElevatedButton('Смотреть подробнее',
                                                           on_click=lambda _, item_id=item.id: page.go(
                                                               f"/mus/{item_id}")),
-                                    ],
+                                    ]
                                 ),
                             ],
-                            alignment=ft.MainAxisAlignment.START,
+                            alignment=ft.MainAxisAlignment.START
                         ),
                     ) for item in museums
                 ],
@@ -267,4 +267,59 @@ def settings(page: ft.Page, params: Params, basket: Basket):
             ft.ElevatedButton("Назад", on_click=lambda _: page.go("/")),
         ],
         scroll=ft.ScrollMode.ALWAYS
+    )
+def allEventsViews(page: ft.Page, params: Params, basket: Basket):
+    events = Events.select()
+
+    return ft.View(
+        "/events/",
+        [
+            ft.AppBar(
+                leading=ft.IconButton(ft.icons.ARROW_BACK, on_click=lambda _: page.go("/")),
+                leading_width=40,
+                title=ft.Text("События"),
+                center_title=False,
+                bgcolor=ft.colors.SURFACE_VARIANT, actions=[
+                    ft.IconButton(ft.icons.WB_SUNNY_OUTLINED, on_click=change_theme),
+                    ft.PopupMenuButton(
+                        items=[
+                            ft.PopupMenuItem(
+                                "Настройки", on_click=lambda _: page.go('/settings/')
+                            ),
+                            ft.PopupMenuItem(
+                                text="Поддержка", on_click=...
+                            ),
+                            ft.PopupMenuItem(
+                                text="Выйти", on_click=close_click
+                            ),
+                        ]
+                    ),
+                ],
+            ),
+            ft.Column(
+                controls=[
+                    ft.Container(
+                        content=ft.Row(
+                            controls=[
+                                ft.Image(
+                                    height=80,
+                                    width=80,
+                                    src=item.image,
+                                    fit=ft.ImageFit.CONTAIN,
+                                ),
+                                ft.Column(
+                                    controls=[
+                                        ft.Text(item.title),
+                                        ft.ElevatedButton('Смотреть подробнее',
+                                                          on_click=...),
+                                    ]
+                                ),
+                            ],
+                            alignment=ft.MainAxisAlignment.START
+                        ),
+                    ) for item in events
+                ],
+            ),
+        ],
+        scroll=ft.ScrollMode.ALWAYS,
     )
