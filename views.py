@@ -311,7 +311,8 @@ def allEventsViews(page: ft.Page, params: Params, basket: Basket):
                                     controls=[
                                         ft.Text(item.title),
                                         ft.ElevatedButton('Смотреть подробнее',
-                                                          on_click=...),
+                                                          on_click=lambda _, item_id=item.id: page.go(
+                                                              f"/event/{item_id}")),
                                     ]
                                 ),
                             ],
@@ -322,4 +323,56 @@ def allEventsViews(page: ft.Page, params: Params, basket: Basket):
             ),
         ],
         scroll=ft.ScrollMode.ALWAYS,
+    )
+def eventInfo(page: ft.Page, params, basket: Basket):
+    id = int(params.get('id'))
+    event = Events.get_by_id(id)
+    return ft.View(
+        "/event/:id",
+        controls=[
+            ft.AppBar(
+                leading=ft.IconButton(ft.icons.ARROW_BACK, on_click=lambda _: page.go("/")),
+                leading_width=40,
+                title=ft.Text(event.title),
+                center_title=False,
+                bgcolor=ft.colors.SURFACE_VARIANT,
+                actions=[
+                    ft.IconButton(ft.icons.WB_SUNNY_OUTLINED, on_click=change_theme),
+                    ft.PopupMenuButton(
+                        items=[
+                            ft.PopupMenuItem(
+                                text="Настройки", on_click=lambda _: page.go('/settings/')
+                            ),
+                            ft.PopupMenuItem(
+                                text="Поддержка", on_click=...
+                            ),
+                            ft.PopupMenuItem(
+                                text="Выйти", on_click=close_click
+                            ),
+                        ]
+                    ),
+                ],
+            ),
+            ft.Column(
+                controls=[
+                    ft.Text(event.title),
+                    ft.Image(
+                        height=300,
+                        width=300,
+                        src=event.image,
+                        fit=ft.ImageFit.FIT_WIDTH
+                    ),
+                    ft.Text(event.description),
+                ],
+            ),
+            # ft.Column(
+            #     controls=[
+            #         ft.Text(event.contacts),
+            #         ft.Text(event.address),
+            #     ],
+            #
+            # ),
+            ft.ElevatedButton("Назад", on_click=lambda _: page.go("/")),
+        ],
+        scroll=ft.ScrollMode.ALWAYS
     )
