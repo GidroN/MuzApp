@@ -1,7 +1,6 @@
 from flet_core import ListView
 import flet as ft
 from  routesevents import ROUTES
-# from flet_map import FletMap
 
 
 

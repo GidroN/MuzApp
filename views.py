@@ -126,9 +126,36 @@ def museumInfoView(page: ft.Page, params: Params, basket: Basket):
                     ft.Text(museum.address),
                     ft.Text(museum.work_time),
                     ft.Text(museum.website),
+                    map.Map(
+                        width=300,
+                        height=500,
+                        configuration = map.MapConfiguration(
+                            initial_center = map.MapLatitudeLongitude(54.32, 48.4),
+                            initial_zoom = 10,
+                            interaction_configuration=map.MapInteractionConfiguration(
+                                flags = map.MapInteractiveFlag.ALL
+                            ),
+
+                        ),
+                        layers =[
+                            map.TileLayer(
+                                url_template="https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                                on_image_error=lambda e: print("TileLayer Error"),
+                            ),
+                            map.Marker(
+                                markers=[
+                                    map.Marker(
+                                        content=ft.Icon(ft.Icons.LOCATION_ON),
+                                        coordinates=map.MapLatitudeLongitude(30,15),
+                                    ),
+                                ],
+                            ),
+
+                        ],
+
+                    ),
 
                 ],
-
             ),
             ft.ElevatedButton("Назад", on_click=lambda _: page.go("/")),
         ],
