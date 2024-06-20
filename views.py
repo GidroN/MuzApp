@@ -1,4 +1,5 @@
 import flet as ft
+import flet.map as map
 from flet_route import Params, Basket
 
 from events import close_click, change_theme, show_drawer, change_route
@@ -126,7 +127,31 @@ def museumInfoView(page: ft.Page, params: Params, basket: Basket):
                     ft.Text(museum.address),
                     ft.Text(museum.work_time),
                     ft.Text(museum.website),
-
+                    map.Map(
+                        width=500,
+                        height=900,
+                        configuration=map.MapConfiguration(
+                            initial_center=map.MapLatitudeLongitude(54.32, 48.4),
+                            initial_zoom=13.0,
+                            interaction_configuration=map.MapInteractionConfiguration(
+                                flags=map.MapInteractiveFlag.ALL
+                            ),
+                        ),
+                        layers=[
+                            map.TileLayer(
+                                url_template="https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                                on_image_error=lambda e: print("TileLayer Error"),
+                            ),
+                            map.MarkerLayer(
+                                markers=[
+                                    map.Marker(
+                                        content=ft.Icon(ft.icons.LOCATION_ON),
+                                        coordinates=map.MapLatitudeLongitude(30, 15),
+                                    ),
+                                ],
+                            ),
+                        ],
+                    ),
                 ],
 
             ),
@@ -268,6 +293,8 @@ def settings(page: ft.Page, params: Params, basket: Basket):
         ],
         scroll=ft.ScrollMode.ALWAYS
     )
+
+
 def allEventsViews(page: ft.Page, params: Params, basket: Basket):
     events = Events.select()
 
