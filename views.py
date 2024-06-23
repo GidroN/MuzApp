@@ -1,8 +1,9 @@
 import flet as ft
+import flet.map as map
 from flet_route import Params, Basket
 
 from events import close_click, change_theme, show_drawer, change_route
-from models import Museum, Events
+from models import Museum, Events, MapCoordinates
 
 
 def indexView(page: ft.Page, params: Params, basket: Basket):
@@ -82,6 +83,7 @@ def indexView(page: ft.Page, params: Params, basket: Basket):
 def museumInfoView(page: ft.Page, params: Params, basket: Basket):
     id = int(params.get('id'))
     museum = Museum.get_by_id(id)
+    mapcoordin = MapCoordinates.get_by_id(id)
     return ft.View(
         "/mus/:id",
         controls=[
@@ -126,7 +128,31 @@ def museumInfoView(page: ft.Page, params: Params, basket: Basket):
                     ft.Text(museum.address),
                     ft.Text(museum.work_time),
                     ft.Text(museum.website),
-
+                    map.Map(
+                        width=500,
+                        height=200,
+                        configuration=map.MapConfiguration(
+                            initial_center=map.MapLatitudeLongitude(mapcoordin.longitude, mapcoordin.latitude),
+                            initial_zoom=19.0,
+                            interaction_configuration=map.MapInteractionConfiguration(
+                                flags=map.MapInteractiveFlag.ALL
+                            ),
+                        ),
+                        layers=[
+                            map.TileLayer(
+                                url_template="https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                                on_image_error=lambda e: print("TileLayer Error"),
+                            ),
+                            map.MarkerLayer(
+                                markers=[
+                                    map.Marker(
+                                        content=ft.Icon(ft.icons.LOCATION_ON),
+                                        coordinates=map.MapLatitudeLongitude(30, 15),
+                                    ),
+                                ],
+                            ),
+                        ],
+                    ),
                 ],
 
             ),

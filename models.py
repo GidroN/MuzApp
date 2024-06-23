@@ -8,9 +8,9 @@ class DefaultDBMeta(pw.Model):
         database = db
 
 
-# class MapCoordinates(DefaultDBMeta):
-#     longitude = pw.TextField() # Долгота
-#     latitude = pw.TextField() # Широтка
+class MapCoordinates(DefaultDBMeta):
+    longitude = pw.TextField() # Долгота
+    latitude = pw.TextField() # Широтка
 
 
 class Museum(DefaultDBMeta):
@@ -20,7 +20,7 @@ class Museum(DefaultDBMeta):
     contacts = pw.TextField()
     website = pw.TextField()
     address = pw.TextField()
-    # address = pw.ForeignKeyField(MapCoordinates, backref='museum')
+    coordinates_id = pw.ForeignKeyField(MapCoordinates, backref='museum')
     work_time = pw.TextField()
 
 
@@ -29,7 +29,5 @@ class Events(DefaultDBMeta):
     description = pw.TextField()
     image = pw.CharField()
     address = pw.TextField()
-    # address = pw.ForeignKeyField(MapCoordinates, backref='events')
     museum = pw.ForeignKeyField(Museum, backref='events')
-
 

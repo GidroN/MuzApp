@@ -1,9 +1,10 @@
 from playhouse.migrate import *
+from models import *
 my_db = SqliteDatabase('db.sqlite3')
 migrator = SqliteMigrator(my_db)
 
-work_time = TextField(null=True)
+coordinates_id = pw.ForeignKeyField(MapCoordinates, backref='museum')
 
 migrate(
-    migrator.add_column('museum', 'work_time',work_time),
+    migrator.add_column('museum', 'coordinates_id', coordinates_id),
 )
