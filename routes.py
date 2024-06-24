@@ -1,6 +1,6 @@
-from flet_core import event
 from flet_route import path
-from views import indexView, aboutAppView, aboutAppCity, museumInfoView, settings, allEventsViews, eventInfo
+from views import indexView, aboutAppView, aboutAppCity, museumInfoView, settings, allEventsViews, eventInfo, \
+    supportView
 
 app_routes = [
     path(url="/", clear=True, view=indexView),
@@ -10,5 +10,6 @@ app_routes = [
     path(url='/settings/', clear=False, view=settings),
     path(url='/events/', clear=False, view=allEventsViews),
     path(url='/event/:id', clear=False, view=eventInfo),
+    path(url='/support/', clear=False, view=supportView),
 ]
 
