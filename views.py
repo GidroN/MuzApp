@@ -112,10 +112,9 @@ def museumInfoView(page: ft.Page, params: Params, basket: Basket):
             ),
             ft.Column(
                 controls=[
-                    ft.Text(museum.title),
                     ft.Image(
-                        height=300,
-                        width=300,
+                        height=400,
+                        width=400,
                         src=museum.image,
                         fit=ft.ImageFit.FIT_WIDTH
                     ),
@@ -396,7 +395,7 @@ def eventInfo(page: ft.Page, params, basket: Basket):
         "/event/:id",
         controls=[
             ft.AppBar(
-                leading=ft.IconButton(ft.icons.ARROW_BACK, on_click=lambda _: page.go("/")),
+                leading=ft.IconButton(ft.icons.ARROW_BACK, on_click=lambda _: page.go("/events/")),
                 leading_width=40,
                 title=ft.Text(event.title),
                 center_title=False,
@@ -420,23 +419,16 @@ def eventInfo(page: ft.Page, params, basket: Basket):
             ),
             ft.Column(
                 controls=[
-                    ft.Text(event.title),
                     ft.Image(
-                        height=300,
-                        width=300,
+                        height=400,
+                        width=400,
                         src=event.image,
                         fit=ft.ImageFit.FIT_WIDTH
                     ),
                     ft.Text(event.description),
                 ],
             ),
-            # ft.Column(
-            #     controls=[
-            #         ft.Text(event.contacts),
-            #         ft.Text(event.address),
-            #     ],
-            #
-            # ),
+
             ft.ElevatedButton("Назад", on_click=lambda _: page.go("/")),
         ],
         scroll=ft.ScrollMode.ALWAYS
