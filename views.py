@@ -3,7 +3,7 @@ import flet.map as map
 from flet_route import Params, Basket
 
 from events import close_click, change_theme, show_drawer, change_route
-from models import Museum, Events
+from models import Museum, Events, MapCoordinates
 
 
 def indexView(page: ft.Page, params: Params, basket: Basket):
@@ -41,7 +41,7 @@ def indexView(page: ft.Page, params: Params, basket: Basket):
                                 "Настройки", on_click=lambda _: page.go('/settings/')
                             ),
                             ft.PopupMenuItem(
-                                text="Поддержка", on_click=...
+                                text="Поддержка", on_click=lambda _: page.go('/support/')
                             ),
                             ft.PopupMenuItem(
                                 text="Выйти", on_click=close_click
@@ -83,6 +83,7 @@ def indexView(page: ft.Page, params: Params, basket: Basket):
 def museumInfoView(page: ft.Page, params: Params, basket: Basket):
     id = int(params.get('id'))
     museum = Museum.get_by_id(id)
+    mapcoordin = MapCoordinates.get_by_id(id)
     return ft.View(
         "/mus/:id",
         controls=[
@@ -100,7 +101,7 @@ def museumInfoView(page: ft.Page, params: Params, basket: Basket):
                                 text="Настройки", on_click=lambda _: page.go('/settings/')
                             ),
                             ft.PopupMenuItem(
-                                text="Поддержка", on_click=...
+                                text="Поддержка", on_click=lambda _: page.go('/support/')
                             ),
                             ft.PopupMenuItem(
                                 text="Выйти", on_click=close_click
@@ -111,10 +112,9 @@ def museumInfoView(page: ft.Page, params: Params, basket: Basket):
             ),
             ft.Column(
                 controls=[
-                    ft.Text(museum.title),
                     ft.Image(
-                        height=300,
-                        width=300,
+                        height=400,
+                        width=400,
                         src=museum.image,
                         fit=ft.ImageFit.FIT_WIDTH
                     ),
@@ -129,10 +129,10 @@ def museumInfoView(page: ft.Page, params: Params, basket: Basket):
                     ft.Text(museum.website),
                     map.Map(
                         width=500,
-                        height=900,
+                        height=200,
                         configuration=map.MapConfiguration(
-                            initial_center=map.MapLatitudeLongitude(54.32, 48.4),
-                            initial_zoom=13.0,
+                            initial_center=map.MapLatitudeLongitude(mapcoordin.longitude, mapcoordin.latitude),
+                            initial_zoom=19.0,
                             interaction_configuration=map.MapInteractionConfiguration(
                                 flags=map.MapInteractiveFlag.ALL
                             ),
@@ -145,8 +145,8 @@ def museumInfoView(page: ft.Page, params: Params, basket: Basket):
                             map.MarkerLayer(
                                 markers=[
                                     map.Marker(
-                                        content=ft.Icon(ft.icons.LOCATION_ON),
-                                        coordinates=map.MapLatitudeLongitude(30, 15),
+                                        content=ft.Icon(ft.icons.LOCATION_ON, color=ft.cupertino_colors.DESTRUCTIVE_RED),
+                                        coordinates=map.MapLatitudeLongitude(mapcoordin.longitude, mapcoordin.latitude),
                                     ),
                                 ],
                             ),
@@ -179,7 +179,7 @@ def aboutAppView(page: ft.Page, params: Params, basket: Basket):
                                 text="Настройки", on_click=lambda _: page.go('/settings/')
                             ),
                             ft.PopupMenuItem(
-                                text="Поддержка", on_click=...
+                                text="Поддержка", on_click=lambda _: page.go('/support/')
                             ),
                             ft.PopupMenuItem(
                                 text="Выйти", on_click=close_click
@@ -223,7 +223,7 @@ def aboutAppCity(page: ft.Page, params: Params, basket: Basket):
                                 text="Настройки", on_click=lambda _: page.go('/settings/')
                             ),
                             ft.PopupMenuItem(
-                                text="Поддержка", on_click=...
+                                text="Поддержка", on_click=lambda _: page.go('/support/')
                             ),
                             ft.PopupMenuItem(
                                 text="Выйти", on_click=close_click
@@ -275,7 +275,7 @@ def settings(page: ft.Page, params: Params, basket: Basket):
                                 text="Настройки", on_click=lambda _: page.go('/settings/')
                             ),
                             ft.PopupMenuItem(
-                                text="Поддержка", on_click=...
+                                text="Поддержка", on_click=lambda _: page.go('/support/')
                             ),
                             ft.PopupMenuItem(
                                 text="Выйти", on_click=close_click
@@ -292,6 +292,43 @@ def settings(page: ft.Page, params: Params, basket: Basket):
             ft.ElevatedButton("Назад", on_click=lambda _: page.go("/")),
         ],
         scroll=ft.ScrollMode.ALWAYS
+    )
+
+
+def supportView(page: ft.Page, params: Params, basket: Basket):
+    return ft.View(
+        "/support/",
+        [
+            ft.AppBar(
+                leading=ft.IconButton(ft.icons.ARROW_BACK, on_click=lambda _: page.go("/")),
+                leading_width=40,
+                title=ft.Text("События"),
+                center_title=False,
+                bgcolor=ft.colors.SURFACE_VARIANT, actions=[
+                    ft.IconButton(ft.icons.WB_SUNNY_OUTLINED, on_click=change_theme),
+                    ft.PopupMenuButton(
+                        items=[
+                            ft.PopupMenuItem(
+                                "Настройки", on_click=lambda _: page.go('/settings/')
+                            ),
+                            ft.PopupMenuItem(
+                                text="Поддержка", on_click=lambda _: page.go('/support/')
+                            ),
+                            ft.PopupMenuItem(
+                                text="Выйти", on_click=close_click
+                            ),
+                        ]
+                    ),
+                ],
+            ),
+            ft.Column(
+                controls=[
+                    ft.Text('Для связи с нами напишите нам на почту: ulyanovsk-muz@yandex.ru'),
+                    ft.ElevatedButton("Назад", on_click=lambda _: page.go("/")),
+                ],
+            ),
+        ],
+        scroll=ft.ScrollMode.ALWAYS,
     )
 
 
@@ -338,7 +375,8 @@ def allEventsViews(page: ft.Page, params: Params, basket: Basket):
                                     controls=[
                                         ft.Text(item.title),
                                         ft.ElevatedButton('Смотреть подробнее',
-                                                          on_click=...),
+                                                          on_click=lambda _, item_id=item.id: page.go(
+                                                              f"/event/{item_id}")),
                                     ]
                                 ),
                             ],
@@ -349,4 +387,49 @@ def allEventsViews(page: ft.Page, params: Params, basket: Basket):
             ),
         ],
         scroll=ft.ScrollMode.ALWAYS,
+    )
+def eventInfo(page: ft.Page, params, basket: Basket):
+    id = int(params.get('id'))
+    event = Events.get_by_id(id)
+    return ft.View(
+        "/event/:id",
+        controls=[
+            ft.AppBar(
+                leading=ft.IconButton(ft.icons.ARROW_BACK, on_click=lambda _: page.go("/events/")),
+                leading_width=40,
+                title=ft.Text(event.title),
+                center_title=False,
+                bgcolor=ft.colors.SURFACE_VARIANT,
+                actions=[
+                    ft.IconButton(ft.icons.WB_SUNNY_OUTLINED, on_click=change_theme),
+                    ft.PopupMenuButton(
+                        items=[
+                            ft.PopupMenuItem(
+                                text="Настройки", on_click=lambda _: page.go('/settings/')
+                            ),
+                            ft.PopupMenuItem(
+                                text="Поддержка", on_click=...
+                            ),
+                            ft.PopupMenuItem(
+                                text="Выйти", on_click=close_click
+                            ),
+                        ]
+                    ),
+                ],
+            ),
+            ft.Column(
+                controls=[
+                    ft.Image(
+                        height=400,
+                        width=400,
+                        src=event.image,
+                        fit=ft.ImageFit.FIT_WIDTH
+                    ),
+                    ft.Text(event.description),
+                ],
+            ),
+
+            ft.ElevatedButton("Назад", on_click=lambda _: page.go("/")),
+        ],
+        scroll=ft.ScrollMode.ALWAYS
     )

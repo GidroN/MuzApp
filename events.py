@@ -25,3 +25,4 @@ def change_route(e):
     route = ROUTES[e.control.selected_index]
     e.page.go(route)
     print(route)
+
